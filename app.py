@@ -26,7 +26,7 @@ st.markdown(f"""
 /* --- lienzo: sin cabecera de Streamlit, márgenes mínimos --- */
 [data-testid="stHeader"], [data-testid="stSidebarCollapseButton"], [data-testid="stToolbar"] {{ display: none; }}
 .block-container {{ padding: .7rem 1.2rem .4rem 1.2rem !important; max-width: 100% !important; }}
-[data-testid="stMain"] [data-testid="stVerticalBlock"] {{ gap: .55rem; }}
+[data-testid="stMain"] [data-testid="stVerticalBlock"] {{ gap: .85rem; }}
 /* --- barra lateral azul --- */
 [data-testid="stSidebar"] {{ background: {NAVY}; width: 280px !important; min-width: 280px !important; }}
 [data-testid="stSidebar"] > div:first-child {{ min-height: 100vh; }}
@@ -46,20 +46,21 @@ st.markdown(f"""
 [data-testid="stSidebar"] [data-testid="stWidgetLabel"] {{ margin: 6px 0 3px 0; min-height: 0; }}
 [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {{ color: {YELLOW}; font-weight: 700; font-size: .95rem; }}
 [data-testid="stSidebar"] [data-baseweb="select"] > div, [data-testid="stSidebar"] [data-baseweb="select"] > div > div,
-[data-testid="stSidebar"] .react-aria-ComboBox [role="group"], [data-testid="stSidebar"] .react-aria-ComboBox input {{ background: #FFFFFF !important; border-color: #FFFFFF; border-radius: 0 !important; min-height: 38px; }}
-[data-testid="stSidebar"] [data-baseweb="select"] *, [data-testid="stSidebar"] .react-aria-ComboBox *, [data-testid="stSidebar"] input {{ color: {NAVY} !important; font-size: .95rem; }}
+[data-testid="stSidebar"] .react-aria-ComboBox [role="group"], [data-testid="stSidebar"] .react-aria-ComboBox input {{ background: #FFFFFF !important; border-color: #FFFFFF; border-radius: 0 !important; min-height: 30px; max-height: 34px; }}
+[data-testid="stSidebar"] [data-baseweb="select"] *, [data-testid="stSidebar"] .react-aria-ComboBox *, [data-testid="stSidebar"] input {{ color: {NAVY} !important; font-size: .9rem; padding-top: 2px; padding-bottom: 2px; }}
 [data-testid="stSidebar"] [data-baseweb="tag"] {{ background: {YELLOW} !important; border-radius: 0 !important; }}
 [data-testid="stSidebar"] [data-baseweb="select"] svg, [data-testid="stSidebar"] .react-aria-ComboBox svg {{ fill: {NAVY}; color: {NAVY}; }}
 [data-testid="stSidebar"] [data-testid="stImage"] img {{ border-radius: 0; }}
 /* --- área principal --- */
-h1.titulo {{ color: {NAVY}; font-size: 1.75rem; font-weight: 800; letter-spacing: .3px; margin: 0; line-height: 1.15; text-transform: uppercase; }}
-p.autor {{ color: {GRIS}; font-weight: 700; font-size: .9rem; margin: 2px 0 0 0; }}
-.kpis {{ background: #FFF; box-shadow: 0 1px 5px rgba(0,0,0,.18); display: flex; justify-content: space-around; align-items: center; padding: 10px 16px; min-height: 78px; }}
-.kpis .kpi {{ display: flex; align-items: center; gap: 14px; }}
-.kpis .icono {{ font-size: 2rem; line-height: 1; }}
-.kpis .valor {{ font-size: 1.5rem; font-weight: 700; color: #111; line-height: 1.1; text-align: center; }}
-.kpis .etiqueta {{ font-size: .95rem; font-weight: 700; color: {NAVY}; text-align: center; }}
-[class*="st-key-card"] {{ background: #FFF; box-shadow: 0 1px 5px rgba(0,0,0,.18); padding: 8px 14px 4px 14px; gap: .2rem; }}
+h1.titulo {{ color: {NAVY}; font-size: 1.8rem; font-weight: 800; letter-spacing: .3px; margin: 0; line-height: 1.15; text-transform: uppercase; }}
+p.autor {{ color: {GRIS}; font-weight: 700; font-size: .95rem; margin: 4px 0 10px 0; line-height: 1.3; }}
+.kpis {{ background: #FFF; box-shadow: 0 1px 5px rgba(0,0,0,.18); border-top: 4px solid {YELLOW}; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; padding: 16px 28px; min-height: 96px; margin-bottom: 4px; }}
+.kpis .kpi {{ display: flex; align-items: center; justify-content: center; gap: 18px; border-left: 1px solid #E5E7EB; }}
+.kpis .kpi:first-child {{ border-left: 0; }}
+.kpis .icono {{ font-size: 2.4rem; line-height: 1; }}
+.kpis .valor {{ font-size: 1.7rem; font-weight: 800; color: #111; line-height: 1.1; text-align: center; }}
+.kpis .etiqueta {{ font-size: 1rem; font-weight: 700; color: {NAVY}; text-align: center; margin-top: 2px; }}
+[class*="st-key-card"] {{ background: #FFF; box-shadow: 0 1px 5px rgba(0,0,0,.18); padding: 12px 16px 8px 16px; gap: .3rem; }}
 h3.panel {{ color: {NAVY}; font-size: .95rem; font-weight: 700; margin: 0; }}
 .resultado {{ background: #FFF; border-left: 8px solid {YELLOW}; padding: 14px 18px; box-shadow: 0 1px 5px rgba(0,0,0,.18); }}
 .resultado .grande {{ font-size: 2.4rem; font-weight: 800; color: {NAVY}; line-height: 1; }}
