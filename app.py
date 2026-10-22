@@ -26,7 +26,8 @@ st.markdown(f"""
 /* --- lienzo: sin cabecera de Streamlit, márgenes mínimos --- */
 [data-testid="stHeader"], [data-testid="stSidebarCollapseButton"], [data-testid="stToolbar"] {{ display: none; }}
 .block-container {{ padding: .7rem 1.2rem .4rem 1.2rem !important; max-width: 100% !important; }}
-[data-testid="stMain"] [data-testid="stVerticalBlock"] {{ gap: .85rem; }}
+[data-testid="stMain"] [data-testid="stVerticalBlock"] {{ gap: 1.3rem; }}
+[data-testid="stMain"] [data-testid="stHorizontalBlock"] {{ gap: 1.3rem; }}
 /* --- barra lateral azul --- */
 [data-testid="stSidebar"] {{ background: {NAVY}; width: 280px !important; min-width: 280px !important; }}
 [data-testid="stSidebar"] > div:first-child {{ min-height: 100vh; }}
@@ -54,13 +55,15 @@ st.markdown(f"""
 /* --- área principal --- */
 h1.titulo {{ color: {NAVY}; font-size: 1.8rem; font-weight: 800; letter-spacing: .3px; margin: 0; line-height: 1.15; text-transform: uppercase; }}
 p.autor {{ color: {GRIS}; font-weight: 700; font-size: .95rem; margin: 4px 0 10px 0; line-height: 1.3; }}
-.kpis {{ background: #FFF; box-shadow: 0 1px 5px rgba(0,0,0,.18); border-top: 4px solid {YELLOW}; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; padding: 16px 28px; min-height: 96px; margin-bottom: 4px; }}
+.kpis {{ background: #FFF; box-shadow: 0 1px 5px rgba(0,0,0,.18); display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; padding: 16px 28px; min-height: 96px; margin-bottom: 14px; }}
 .kpis .kpi {{ display: flex; align-items: center; justify-content: center; gap: 18px; border-left: 1px solid #E5E7EB; }}
 .kpis .kpi:first-child {{ border-left: 0; }}
 .kpis .icono {{ font-size: 2.4rem; line-height: 1; }}
 .kpis .valor {{ font-size: 1.7rem; font-weight: 800; color: #111; line-height: 1.1; text-align: center; }}
 .kpis .etiqueta {{ font-size: 1rem; font-weight: 700; color: {NAVY}; text-align: center; margin-top: 2px; }}
 [class*="st-key-card"] {{ background: #FFF; box-shadow: 0 1px 5px rgba(0,0,0,.18); padding: 12px 16px 8px 16px; gap: .3rem; }}
+[class*="st-key-card"] li {{ font-size: .86rem; line-height: 1.3; }}
+[class*="st-key-card"] [data-testid="stCaptionContainer"] {{ font-size: .8rem; }}
 h3.panel {{ color: {NAVY}; font-size: .95rem; font-weight: 700; margin: 0; }}
 .resultado {{ background: #FFF; border-left: 8px solid {YELLOW}; padding: 14px 18px; box-shadow: 0 1px 5px rgba(0,0,0,.18); }}
 .resultado .grande {{ font-size: 2.4rem; font-weight: 800; color: {NAVY}; line-height: 1; }}
@@ -115,7 +118,7 @@ m = modelos()
 D = m.datos
 
 # ----------------------------------------------------------------------------- barra lateral: navegación y filtros
-VISTAS = ["Panorama - vista 1", "Brechas - vista 2", "Predicción - vista 3", "Segmentos", "Modelos"]
+VISTAS = ["Panorama", "Brechas", "Predicción", "Segmentos", "Modelos"]
 if "vista" not in st.session_state:
     st.session_state.vista = VISTAS[0]
 
@@ -235,14 +238,14 @@ elif st.session_state.vista == VISTAS[1]:
         f = px.bar(y=g.index, x=g["mean"], orientation="h", color_discrete_sequence=[BLUE], text=g["mean"].map(fmt), hover_data={"n": g["size"]})
         f.update_traces(textposition="outside")
         f.update_layout(yaxis_title=None, xaxis_title="Puntaje global", xaxis_range=[0, 330], yaxis=dict(autorange="reversed"))
-        fig(f, 250)
+        fig(f, 235)
     with b, tarjeta():
         panel("Jornada del colegio")
         g = F.groupby("cole_jornada")["punt_global"].agg(["mean", "size"]).sort_values("mean", ascending=False)
         f = px.bar(x=g.index, y=g["mean"], color_discrete_sequence=[YELLOW], text=g["mean"].map(fmt), hover_data={"n": g["size"]})
         f.update_traces(textposition="outside")
         f.update_layout(xaxis_title=None, yaxis_title="Puntaje global", yaxis_range=[0, 330])
-        fig(f, 250)
+        fig(f, 235)
     with c, tarjeta():
         panel("Estrato de la vivienda y acceso a internet")
         orden = ["Sin Estrato", "Estrato 1", "Estrato 2", "Estrato 3", "Estrato 4 a 6", "No respondió"]
@@ -251,7 +254,7 @@ elif st.session_state.vista == VISTAS[1]:
         f = px.bar(g, x="fami_estratovivienda", y="punt_global", color="fami_tieneinternet", barmode="group", category_orders={"fami_estratovivienda": orden},
                    color_discrete_map={"Si": BLUE, "No": ORANGE})
         f.update_layout(xaxis_title=None, yaxis_title="Puntaje global", yaxis_range=[0, 330], legend_title="Internet")
-        fig(f, 250)
+        fig(f, 235)
 
 # ============================================================================= vista 3 · predicción en vivo
 elif st.session_state.vista == VISTAS[2]:
@@ -311,7 +314,7 @@ elif st.session_state.vista == VISTAS[2]:
             f = go.Figure(go.Bar(x=c.values[::-1], y=[etiquetas.get(i, i) for i in c.index[::-1]], orientation="h",
                                  marker_color=[BLUE if v > 0 else ORANGE for v in c.values[::-1]], text=[f"{v:+.1f}" for v in c.values[::-1]], textposition="outside"))
             f.update_layout(xaxis_title=f"Contribución en puntos (base del modelo: {r['base']:.0f})", yaxis_title=None)
-            fig(f, 290)
+            fig(f, 330)
 
 # ============================================================================= vista 4 · segmentos
 elif st.session_state.vista == VISTAS[3]:
@@ -332,16 +335,16 @@ elif st.session_state.vista == VISTAS[3]:
         f = px.scatter(P, x="pc1_nivel", y="pc2_nivel", color="segmento", color_discrete_sequence=[BLUE, ORANGE, "#1F3A93"], opacity=.7,
                        hover_data={"pc1_nivel": False, "pc2_nivel": False, "punt_global": True, "edad_original": True, "cole_jornada": True})
         f.update_traces(marker_size=7)
-        f.update_layout(xaxis_title="Componente principal 1", yaxis_title="Componente principal 2", legend=dict(orientation="h", y=-0.2))
-        fig(f, 290)
+        f.update_layout(xaxis_title="Componente principal 1", yaxis_title="Componente principal 2", legend=dict(orientation="h", y=-0.38))
+        fig(f, 215)
     with b, tarjeta():
         panel("Perfiles relativos: fortalezas por área descontado el nivel (componentes principales)")
         P = D.assign(perfil=D["cluster_perfil"].map(NOMBRES_PERFIL))
         f = px.scatter(P, x="pc1_perfil", y="pc2_perfil", color="perfil", color_discrete_sequence=[BLUE, ORANGE], opacity=.7,
                        hover_data={"pc1_perfil": False, "pc2_perfil": False, "punt_global": True})
         f.update_traces(marker_size=7)
-        f.update_layout(xaxis_title="Componente principal 1", yaxis_title="Componente principal 2", legend=dict(orientation="h", y=-0.2))
-        fig(f, 290)
+        f.update_layout(xaxis_title="Componente principal 1", yaxis_title="Componente principal 2", legend=dict(orientation="h", y=-0.38))
+        fig(f, 215)
     a, b = st.columns([1.4, 1])
     with a, tarjeta():
         panel("Perfil de cada segmento por nivel")
@@ -352,21 +355,24 @@ elif st.session_state.vista == VISTAS[3]:
                           "% jornada nocturna o sabatina": g["cole_jornada"].apply(lambda x: x.isin(["NOCHE", "SABATINA"]).mean() * 100),
                           "% con internet": g["fami_tieneinternet"].apply(lambda x: (x == "Si").mean() * 100)})
         t.index = [NOMBRES_NIVEL[i] for i in t.index]
-        st.dataframe(t.T.style.format("{:.1f}"), width="stretch", height=300)
+        st.dataframe(t.T.style.format("{:.1f}"), width="stretch", height=215)
     with b, tarjeta():
         panel("¿A qué segmento pertenece un estudiante?")
-        c1, c2 = st.columns(2)
+        izq, der = st.columns([1.2, 1])
         vals = {}
-        for i, a_ in enumerate(s11.AREA_COLS):
-            vals[a_] = (c1 if i % 2 == 0 else c2).number_input(s11.AREA_NOMBRES[a_], 0, 100, int(D[a_].median()))
-        ed = c2.number_input("Edad", 14, 80, 17)
-        seg = s11.segmento_de(m, vals, ed)
-        rel_u = pd.Series(vals).astype(float)
-        rel_u = (rel_u - rel_u.mean()).rename(s11.AREA_NOMBRES)
-        st.markdown(f"**Segmento por nivel:** {NOMBRES_NIVEL[seg['nivel']]}  \n**Perfil relativo:** {NOMBRES_PERFIL[seg['perfil']]}")
-        f = go.Figure(go.Scatterpolar(r=list(rel_u.values) + [rel_u.values[0]], theta=list(rel_u.index) + [rel_u.index[0]], fill="toself", line_color=BLUE))
-        f.update_layout(polar=dict(radialaxis=dict(title="puntos sobre el promedio propio")), showlegend=False)
-        fig(f, 210)
+        with izq:
+            c1, c2 = st.columns(2)
+            for i, a_ in enumerate(s11.AREA_COLS):
+                vals[a_] = (c1 if i % 2 == 0 else c2).number_input(s11.AREA_NOMBRES[a_], 0, 100, int(D[a_].median()))
+            ed = c2.number_input("Edad", 14, 80, 17)
+            seg = s11.segmento_de(m, vals, ed)
+            st.markdown(f"**Segmento por nivel:** {NOMBRES_NIVEL[seg['nivel']]}  \n**Perfil relativo:** {NOMBRES_PERFIL[seg['perfil']]}")
+        with der:
+            rel_u = pd.Series(vals).astype(float)
+            rel_u = (rel_u - rel_u.mean()).rename(s11.AREA_NOMBRES)
+            f = go.Figure(go.Scatterpolar(r=list(rel_u.values) + [rel_u.values[0]], theta=list(rel_u.index) + [rel_u.index[0]], fill="toself", line_color=BLUE))
+            f.update_layout(polar=dict(radialaxis=dict(title="puntos sobre el promedio propio")), showlegend=False)
+            fig(f, 250)
 
 # ============================================================================= vista 5 · modelos y datos
 else:
@@ -378,7 +384,7 @@ else:
         comp = pd.DataFrame({"Modelo": ["Gradient Boosting", "Random Forest", "Perceptrón multicapa (PyTorch)", "ElasticNet", "Ridge", "Lasso", "Predecir la media"],
                              "MAE cv": [34.53, 34.62, 35.19, 34.76, 34.77, 34.93, np.nan], "MAE prueba": [34.33, 33.81, 34.37, 34.97, 35.00, 35.22, 42.20],
                              "RMSE prueba": [43.31, 42.45, 42.58, 42.75, 42.72, 43.27, 50.9], "R² prueba": [0.286, 0.314, 0.310, 0.304, 0.305, 0.287, 0.0]}).set_index("Modelo")
-        st.dataframe(comp.style.format("{:.2f}", na_rep="—").format({"R² prueba": "{:.3f}"}), width="stretch", height=270)
+        st.dataframe(comp.style.format("{:.2f}", na_rep="—").format({"R² prueba": "{:.3f}"}), width="stretch", height=200)
         st.caption("Resultados del cuaderno 03; el Gradient Boosting (100 árboles de profundidad 2) es el mejor por validación cruzada y es el que usa el tablero. "
                    f"Entrenado aquí al arrancar: MAE {m.metricas_reg['MAE']:.2f}, RMSE {m.metricas_reg['RMSE']:.2f}, R² {m.metricas_reg['R2']:.3f}.")
     with b, tarjeta():
@@ -386,13 +392,13 @@ else:
         comp = pd.DataFrame({"Modelo": ["SVM (RBF)", "KNN", "Regresión logística", "Random Forest", "Azar"],
                              "F1 cv": [0.508, 0.482, 0.507, 0.503, np.nan], "F1 macro prueba": [0.498, 0.502, 0.482, 0.463, 0.333],
                              "Exactitud": [0.500, 0.500, 0.480, 0.473, 0.333], "AUC-ROC": [0.680, 0.681, 0.664, 0.693, 0.500]}).set_index("Modelo")
-        st.dataframe(comp.style.format("{:.3f}", na_rep="—"), width="stretch", height=210)
+        st.dataframe(comp.style.format("{:.3f}", na_rep="—"), width="stretch", height=150)
         st.caption("La clase Medio es la difícil (F1 0,38): los terciles cortan un puntaje continuo donde el contexto no distingue a los estudiantes vecinos. "
                    f"SVM entrenada aquí: F1 macro {m.metricas_clf['F1 macro']:.3f}, exactitud {m.metricas_clf['exactitud']:.3f}, AUC {m.metricas_clf['AUC-ROC']:.3f}.")
     a, b = st.columns([1, 1])
     with a, tarjeta():
         panel("Importancia de las variables en el Gradient Boosting")
-        imp = m.importancias.head(12)
+        imp = m.importancias.head(10)
         nombres = {"edad": "Edad", "educ_madre_ord": "Educación de la madre", "educ_padre_ord": "Educación del padre", "region": "Región", "fami_tieneinternet": "Internet",
                    "cole_jornada": "Jornada", "cole_naturaleza": "Naturaleza del colegio", "genero_F": "Género", "fami_personashogar": "Personas en el hogar",
                    "fami_estratovivienda": "Estrato", "fami_cuartoshogar": "Cuartos", "fami_tienecomputador": "Computador", "personas_por_cuarto": "Personas por cuarto",
@@ -400,8 +406,8 @@ else:
                    "cole_area_ubicacion": "Área del colegio", "fami_tienelavadora": "Lavadora", "cole_genero": "Colegio (género)"}
         f = px.bar(x=imp.values[::-1], y=[nombres.get(i, i) for i in imp.index[::-1]], orientation="h", color_discrete_sequence=[YELLOW], text=[f"{v:.3f}" for v in imp.values[::-1]])
         f.update_traces(textposition="outside")
-        f.update_layout(xaxis_title="Reducción de impureza (suma = 1)", yaxis_title=None, xaxis_range=[0, imp.max() * 1.2])
-        fig(f, 250)
+        f.update_layout(xaxis_title="Reducción de impureza (suma = 1)", yaxis_title=None, xaxis_range=[0, imp.max() * 1.2], yaxis=dict(dtick=1, automargin=True))
+        fig(f, 235)
     with b, tarjeta():
         panel("Sobre los datos y el método")
         st.markdown(f"""
