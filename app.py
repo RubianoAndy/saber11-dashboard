@@ -31,7 +31,8 @@ st.markdown(f"""
 /* --- barra lateral azul --- */
 [data-testid="stSidebar"] {{ background: {NAVY}; width: 280px !important; min-width: 280px !important; }}
 [data-testid="stSidebar"] > div:first-child {{ min-height: 100vh; }}
-[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {{ padding: 1.2rem 1.2rem 1rem 1.2rem; }}
+[data-testid="stSidebarHeader"] {{ display: none; height: 0; min-height: 0; padding: 0; margin: 0; }}
+[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {{ padding: 1.6rem 1.2rem 1rem 1.2rem; }}
 [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {{ gap: .6rem; }}
 [data-testid="stSidebar"] [data-testid="stElementContainer"] {{ margin: 0; }}
 [data-testid="stSidebar"] * {{ color: #FFFFFF; }}
@@ -65,7 +66,7 @@ p.autor {{ color: {GRIS}; font-weight: 700; font-size: .95rem; margin: 4px 0 10p
 [class*="st-key-card"] li {{ font-size: .86rem; line-height: 1.3; }}
 [class*="st-key-card"] [data-testid="stCaptionContainer"] {{ font-size: .8rem; }}
 h3.panel {{ color: {NAVY}; font-size: .95rem; font-weight: 700; margin: 0; }}
-.resultado {{ background: #FFF; border-left: 8px solid {YELLOW}; padding: 14px 18px; box-shadow: 0 1px 5px rgba(0,0,0,.18); }}
+.resultado {{ background: #FFF; padding: 14px 18px; box-shadow: 0 1px 5px rgba(0,0,0,.18); margin-bottom: 1.4rem; }}
 .resultado .grande {{ font-size: 2.4rem; font-weight: 800; color: {NAVY}; line-height: 1; }}
 [data-testid="stDataFrame"], [data-baseweb="select"] > div, [data-baseweb="select"] > div > div, [data-baseweb="input"] > div, [data-baseweb="base-input"],
 .stButton > button, [data-testid="stNumberInput"] > div > div, .react-aria-ComboBox [role="group"], .react-aria-ComboBox input {{ border-radius: 0 !important; }}
@@ -392,7 +393,7 @@ else:
         comp = pd.DataFrame({"Modelo": ["SVM (RBF)", "KNN", "Regresión logística", "Random Forest", "Azar"],
                              "F1 cv": [0.508, 0.482, 0.507, 0.503, np.nan], "F1 macro prueba": [0.498, 0.502, 0.482, 0.463, 0.333],
                              "Exactitud": [0.500, 0.500, 0.480, 0.473, 0.333], "AUC-ROC": [0.680, 0.681, 0.664, 0.693, 0.500]}).set_index("Modelo")
-        st.dataframe(comp.style.format("{:.3f}", na_rep="—"), width="stretch", height=150)
+        st.dataframe(comp.style.format("{:.3f}", na_rep="—"), width="stretch", height=200)
         st.caption("La clase Medio es la difícil (F1 0,38): los terciles cortan un puntaje continuo donde el contexto no distingue a los estudiantes vecinos. "
                    f"SVM entrenada aquí: F1 macro {m.metricas_clf['F1 macro']:.3f}, exactitud {m.metricas_clf['exactitud']:.3f}, AUC {m.metricas_clf['AUC-ROC']:.3f}.")
     a, b = st.columns([1, 1])
