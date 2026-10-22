@@ -30,28 +30,27 @@ st.markdown(f"""
 /* --- barra lateral azul --- */
 [data-testid="stSidebar"] {{ background: {NAVY}; width: 280px !important; min-width: 280px !important; }}
 [data-testid="stSidebar"] > div:first-child {{ min-height: 100vh; }}
-[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {{ padding: 1rem 1.1rem .8rem 1.1rem; }}
-[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {{ gap: .25rem; }}
+[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {{ padding: 1.2rem 1.2rem 1rem 1.2rem; }}
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {{ gap: .6rem; }}
 [data-testid="stSidebar"] [data-testid="stElementContainer"] {{ margin: 0; }}
 [data-testid="stSidebar"] * {{ color: #FFFFFF; }}
-[data-testid="stSidebar"] p {{ font-size: .85rem; margin: 0; line-height: 1.3; }}
-[data-testid="stSidebar"] hr {{ margin: .55rem 0 .45rem 0; border: 0; border-top: 2px solid {YELLOW}; }}
+[data-testid="stSidebar"] p {{ font-size: .95rem; margin: 0; line-height: 1.35; }}
+[data-testid="stSidebar"] hr {{ margin: .8rem 0; border: 0; border-top: 2px solid {YELLOW}; }}
 [data-testid="stSidebar"] .stButton {{ width: 100%; }}
-[data-testid="stSidebar"] .stButton > button {{ width: 100%; display: block; background: transparent; border: 0; border-radius: 0; min-height: 38px; padding: 4px 8px; box-shadow: none; }}
-[data-testid="stSidebar"] .stButton > button p {{ font-size: .95rem; font-weight: 700; color: #FFFFFF; }}
+[data-testid="stSidebar"] .stButton > button {{ width: 100%; display: block; background: transparent; border: 0; border-radius: 0; min-height: 42px; padding: 6px 10px; box-shadow: none; }}
+[data-testid="stSidebar"] .stButton > button p {{ font-size: 1rem; font-weight: 700; color: #FFFFFF; }}
 [data-testid="stSidebar"] .stButton > button:hover p {{ color: {YELLOW}; }}
 [data-testid="stSidebar"] .stButton > button[kind="primary"] {{ background: {YELLOW}; }}
 [data-testid="stSidebar"] .stButton > button[kind="primary"]:hover {{ background: {YELLOW}; }}
 [data-testid="stSidebar"] .stButton > button[kind="primary"] p {{ color: {NAVY}; }}
-[data-testid="stSidebar"] [data-testid="stWidgetLabel"] {{ margin: 4px 0 2px 0; min-height: 0; }}
-[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {{ color: {YELLOW}; font-weight: 700; font-size: .85rem; }}
+[data-testid="stSidebar"] [data-testid="stWidgetLabel"] {{ margin: 6px 0 3px 0; min-height: 0; }}
+[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {{ color: {YELLOW}; font-weight: 700; font-size: .95rem; }}
 [data-testid="stSidebar"] [data-baseweb="select"] > div, [data-testid="stSidebar"] [data-baseweb="select"] > div > div,
-[data-testid="stSidebar"] .react-aria-ComboBox [role="group"], [data-testid="stSidebar"] .react-aria-ComboBox input {{ background: #FFFFFF !important; border-color: #FFFFFF; border-radius: 0 !important; min-height: 32px; }}
-[data-testid="stSidebar"] [data-baseweb="select"] *, [data-testid="stSidebar"] .react-aria-ComboBox *, [data-testid="stSidebar"] input {{ color: {NAVY} !important; font-size: .85rem; }}
+[data-testid="stSidebar"] .react-aria-ComboBox [role="group"], [data-testid="stSidebar"] .react-aria-ComboBox input {{ background: #FFFFFF !important; border-color: #FFFFFF; border-radius: 0 !important; min-height: 38px; }}
+[data-testid="stSidebar"] [data-baseweb="select"] *, [data-testid="stSidebar"] .react-aria-ComboBox *, [data-testid="stSidebar"] input {{ color: {NAVY} !important; font-size: .95rem; }}
 [data-testid="stSidebar"] [data-baseweb="tag"] {{ background: {YELLOW} !important; border-radius: 0 !important; }}
 [data-testid="stSidebar"] [data-baseweb="select"] svg, [data-testid="stSidebar"] .react-aria-ComboBox svg {{ fill: {NAVY}; color: {NAVY}; }}
-[data-testid="stSidebar"] [data-testid="stImage"] {{ display: flex; justify-content: center; }}
-[data-testid="stSidebar"] .st-key-foto img {{ border-radius: 50%; width: 110px; height: 110px; object-fit: cover; border: 3px solid #FFFFFF; }}
+[data-testid="stSidebar"] [data-testid="stImage"] img {{ border-radius: 0; }}
 /* --- área principal --- */
 h1.titulo {{ color: {NAVY}; font-size: 1.75rem; font-weight: 800; letter-spacing: .3px; margin: 0; line-height: 1.15; text-transform: uppercase; }}
 p.autor {{ color: {GRIS}; font-weight: 700; font-size: .9rem; margin: 2px 0 0 0; }}
@@ -120,7 +119,7 @@ if "vista" not in st.session_state:
     st.session_state.vista = VISTAS[0]
 
 with st.sidebar:
-    _, logo, _ = st.columns([1, 4, 1])
+    _, logo, _ = st.columns([1, 5, 1])
     logo.image(str(ROOT / "assets" / "images" / "UnisalleDarkLogoV1.png"), width="stretch")
     st.markdown("---")
     for v in VISTAS:
@@ -134,8 +133,9 @@ with st.sidebar:
     sel_jor = st.multiselect("Jornada", sorted(D["cole_jornada"].unique()), default=[], placeholder="Todas")
     sel_gen = st.selectbox("Género del estudiante", ["Todos", "Femenino", "Masculino"])
     st.markdown("---")
-    with st.container(key="foto"):
-        st.image(str(ROOT / "assets" / "images" / "author" / "Andy Rubiano.png"), width=110)
+    c1, c2 = st.columns([1, 2.2])
+    c1.image(str(ROOT / "assets" / "images" / "author" / "Andy Rubiano.png"), width="stretch")
+    c2.markdown("**Andy Rubiano**  \nMaestría en IA  \nCiencia de Datos")
 
 F = D.copy()
 if sel_deptos:
