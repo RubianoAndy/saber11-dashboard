@@ -53,6 +53,7 @@ st.markdown(f"""
 [data-testid="stSidebar"] [data-baseweb="tag"] {{ background: {YELLOW} !important; border-radius: 0 !important; }}
 [data-testid="stSidebar"] [data-baseweb="select"] svg, [data-testid="stSidebar"] .react-aria-ComboBox svg {{ fill: {NAVY}; color: {NAVY}; }}
 [data-testid="stSidebar"] [data-testid="stImage"] img {{ border-radius: 0; }}
+[data-testid="stSidebar"] .st-key-autor {{ position: fixed; bottom: 14px; width: 202px; }}
 /* --- área principal --- */
 h1.titulo {{ color: {NAVY}; font-size: 1.8rem; font-weight: 800; letter-spacing: .3px; margin: 0; line-height: 1.15; text-transform: uppercase; }}
 p.autor {{ color: {GRIS}; font-weight: 700; font-size: .95rem; margin: 4px 0 10px 0; line-height: 1.3; }}
@@ -137,10 +138,11 @@ with st.sidebar:
     sel_nat = st.multiselect("Naturaleza del colegio", ["OFICIAL", "NO OFICIAL"], default=[], placeholder="Todas")
     sel_jor = st.multiselect("Jornada", sorted(D["cole_jornada"].unique()), default=[], placeholder="Todas")
     sel_gen = st.selectbox("Género del estudiante", ["Todos", "Femenino", "Masculino"])
-    st.markdown("---")
-    c1, c2 = st.columns([1, 2.2])
-    c1.image(str(ROOT / "assets" / "images" / "author" / "Andy Rubiano.png"), width="stretch")
-    c2.markdown("**Andy Rubiano**  \nMaestría en IA  \nCiencia de Datos")
+    with st.container(key="autor"):
+        st.markdown("---")
+        c1, c2 = st.columns([1, 2.2])
+        c1.image(str(ROOT / "assets" / "images" / "author" / "Andy Rubiano.png"), width="stretch")
+        c2.markdown("**Andy Rubiano**  \nMaestría en IA  \nCiencia de Datos")
 
 F = D.copy()
 if sel_deptos:
