@@ -20,7 +20,7 @@
 | **Universidad** | Universidad de La Salle |
 | **Líneas de Trabajo** | Visualización de Datos, Despliegue de Modelos, Interpretabilidad |
 | **Año** | 2026 |
-| **Estado** | Tablero completo · Despliegue en Streamlit Community Cloud pendiente |
+| **Estado** | Tablero desplegado en [saber11-dashboard.streamlit.app](https://saber11-dashboard.streamlit.app/) · Sustentación pendiente |
 
 ---
 
@@ -141,13 +141,13 @@ streamlit run app.py
 1. Entrar a [share.streamlit.io](https://share.streamlit.io) con la cuenta de GitHub.
 2. *Create app* → *Deploy a public app from GitHub*.
 3. Repositorio `RubianoAndy/saber11-dashboard`, rama `main`, archivo principal `app.py`.
-4. *Deploy*. Cada `git push` posterior redespliega la aplicación.
+4. *Deploy*. Cada `git push` posterior redespliega la aplicación. La app está publicada en [saber11-dashboard.streamlit.app](https://saber11-dashboard.streamlit.app/).
 
 ---
 
 ## 📋 Estado del Proyecto
 
-### ✅ Tablero
+### ✅ Tablero · [saber11-dashboard.streamlit.app](https://saber11-dashboard.streamlit.app/)
 
 - ✅ **Cinco vistas** (panorama, brechas, predicción, segmentos, modelos) con filtros globales e identidad gráfica institucional
 - ✅ **Predicción en vivo** con rango de error, nivel de desempeño y explicación SHAP por estudiante
@@ -157,7 +157,6 @@ streamlit run app.py
 
 ### ⏳ Pendiente
 
-- ⏳ Desplegar en Streamlit Community Cloud y registrar la URL pública aquí y en `saber11-project/dashboard/README.md`
 - ⏳ Sustentación (28 nov. 2026)
 
 ---
@@ -170,6 +169,7 @@ streamlit run app.py
 
 ## 🔗 Recursos
 
+- [Aplicación publicada](https://saber11-dashboard.streamlit.app/)
 - [Repositorio principal del proyecto (cuadernos)](https://github.com/RubianoAndy/saber11-project)
 - [Dataset — Resultados únicos Saber 11 (datos.gov.co)](https://www.datos.gov.co/Educaci-n/Resultados-nicos-Saber-11/kgxf-xxbe)
 - [Muestra utilizada — Saber 11 Colombia - Muestra 2022-4 (Kaggle)](https://www.kaggle.com/datasets/andyrubiano/saber-11-muestra-2022-4)

@@ -24,26 +24,30 @@ ROOT = Path(__file__).parent
 st.markdown(f"""
 <style>
 [data-testid="stSidebar"] {{ background: {NAVY}; }}
+[data-testid="stSidebar"] > div:first-child {{ min-height: 100vh; }}
 [data-testid="stSidebar"] * {{ color: #FFFFFF; }}
 [data-testid="stSidebar"] hr {{ border-color: {YELLOW}; opacity: .8; }}
-[data-testid="stSidebar"] .stButton > button {{ width: 100%; background: {NAVY}; color: #FFF; border: 1px solid {NAVY}; font-weight: 700; border-radius: 4px; }}
+[data-testid="stSidebar"] .stButton {{ width: 100%; }}
+[data-testid="stSidebar"] .stButton > button {{ width: 100%; display: block; background: {NAVY}; color: #FFF; border: 1px solid #2a4f86; font-weight: 700; border-radius: 0; }}
 [data-testid="stSidebar"] .stButton > button:hover {{ border-color: {YELLOW}; color: {YELLOW}; }}
 [data-testid="stSidebar"] .stButton > button[kind="primary"] {{ background: {YELLOW}; color: {NAVY}; border-color: {YELLOW}; }}
 [data-testid="stSidebar"] .stButton > button[kind="primary"] * {{ color: {NAVY}; }}
-[data-testid="stSidebar"] [data-baseweb="select"] > div, [data-testid="stSidebar"] [data-baseweb="tag"] {{ background: #0f3366; border-color: #2a4f86; }}
+[data-testid="stSidebar"] [data-baseweb="select"] > div, [data-testid="stSidebar"] [data-baseweb="tag"] {{ background: #0f3366; border-color: #2a4f86; border-radius: 0; }}
 [data-testid="stSidebar"] [data-baseweb="select"] svg {{ fill: #FFF; }}
+[data-testid="stSidebar"] [data-testid="stImage"] img {{ border-radius: 0; }}
 .block-container {{ padding-top: 1.2rem; padding-bottom: 2rem; }}
 h1.titulo {{ color: {NAVY}; font-size: 2rem; font-weight: 800; letter-spacing: .5px; margin: 0; text-transform: uppercase; }}
 p.autor {{ color: {GRIS}; font-weight: 700; margin: 0 0 .8rem 0; }}
-.kpi {{ background: #FFF; border-radius: 6px; padding: 14px 18px; box-shadow: 0 1px 4px rgba(0,0,0,.12); display: flex; align-items: center; gap: 14px; height: 92px; }}
+.kpi {{ background: #FFF; border-radius: 0; padding: 14px 18px; box-shadow: 0 1px 4px rgba(0,0,0,.12); display: flex; align-items: center; gap: 14px; height: 92px; }}
 .kpi .icono {{ font-size: 2rem; }}
 .kpi .valor {{ font-size: 1.55rem; font-weight: 800; color: #111; line-height: 1.1; }}
 .kpi .etiqueta {{ font-size: .95rem; font-weight: 700; color: {NAVY}; }}
-[data-testid="stVerticalBlockBorderWrapper"] {{ background: #FFF; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }}
+[data-testid="stVerticalBlockBorderWrapper"] {{ background: #FFF; border-radius: 0; box-shadow: 0 1px 4px rgba(0,0,0,.12); }}
+[data-testid="stVerticalBlockBorderWrapper"] > div {{ border-radius: 0; }}
 h3.panel {{ color: {NAVY}; font-size: 1rem; font-weight: 800; margin: 0 0 4px 0; }}
-.resultado {{ background: #FFF; border-left: 8px solid {YELLOW}; border-radius: 6px; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }}
+.resultado {{ background: #FFF; border-left: 8px solid {YELLOW}; border-radius: 0; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }}
 .resultado .grande {{ font-size: 2.6rem; font-weight: 800; color: {NAVY}; line-height: 1; }}
-[data-testid="stImage"] img {{ border-radius: 50%; }}
+[data-testid="stDataFrame"], [data-baseweb="select"] > div, [data-baseweb="input"] > div, .stButton > button {{ border-radius: 0 !important; }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -90,9 +94,11 @@ if "vista" not in st.session_state:
     st.session_state.vista = VISTAS[0]
 
 with st.sidebar:
-    st.image(str(ROOT / "assets" / "images" / "UnisalleDarkLogoV1.png"), width="stretch")
+    _, logo, _ = st.columns([1, 5, 1])
+    logo.image(str(ROOT / "assets" / "images" / "UnisalleDarkLogoV1.png"), width="stretch")
+    st.write("")
     for v in VISTAS:
-        if st.button(v, type="primary" if st.session_state.vista == v else "secondary", key=f"nav_{v}"):
+        if st.button(v, type="primary" if st.session_state.vista == v else "secondary", key=f"nav_{v}", width="stretch"):
             st.session_state.vista = v
             st.rerun()
     st.markdown("---")
