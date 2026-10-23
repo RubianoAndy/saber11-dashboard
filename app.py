@@ -379,10 +379,11 @@ elif st.session_state.vista == VISTAS[3]:
             st.markdown(f"**Segmento por nivel:** {NOMBRES_NIVEL[seg['nivel']]}  \n**Perfil relativo:** {NOMBRES_PERFIL[seg['perfil']]}")
         with der:
             rel_u = pd.Series(vals).astype(float)
-            rel_u = (rel_u - rel_u.mean()).rename(s11.AREA_NOMBRES)
+            cortos = {"punt_matematicas": "Matemáticas", "punt_lectura_critica": "Lectura", "punt_sociales_ciudadanas": "Sociales", "punt_c_naturales": "Ciencias", "punt_ingles": "Inglés"}
+            rel_u = (rel_u - rel_u.mean()).rename(cortos)
             f = go.Figure(go.Scatterpolar(r=list(rel_u.values) + [rel_u.values[0]], theta=list(rel_u.index) + [rel_u.index[0]], fill="toself", line_color=BLUE))
             f.update_layout(polar=dict(radialaxis=dict(tickfont=dict(size=9)), angularaxis=dict(tickfont=dict(size=10))), showlegend=False)
-            fig(f, 215, margen=dict(l=55, r=55, t=22, b=22))
+            fig(f, 215, margen=dict(l=60, r=80, t=22, b=22))
 
 # ============================================================================= vista 5 · modelos y datos
 else:

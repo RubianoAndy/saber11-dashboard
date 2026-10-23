@@ -53,6 +53,7 @@ Se separa del repositorio principal por una razón práctica: el despliegue en S
 │   └── images/
 │       ├── Logo.png                  # Logo institucional (fondo claro)
 │       ├── UnisalleDarkLogoV1.png    # Logo en blanco para la barra lateral azul
+│       ├── vistas/                   # Capturas de las cinco vistas para este README
 │       └── author/                   # Fotografía del autor
 └── src/
     └── saber11.py                # Carga desde Kaggle, preparación (cuaderno 02), modelos (cuaderno 03), predicción y segmentación
@@ -73,6 +74,38 @@ Se separa del repositorio principal por una razón práctica: el despliegue en S
 | **Modelos** | Métricas en vivo del Gradient Boosting y la SVM, tablas comparativas de los seis regresores y los cuatro clasificadores del cuaderno 03, importancia de variables y ficha de los datos. |
 
 Los filtros de la barra lateral (departamento, naturaleza, jornada y género) afectan las vistas de panorama y brechas; la predicción y los segmentos usan siempre los modelos entrenados con toda la muestra.
+
+### Capturas
+
+**Panorama** — indicadores generales, puntaje por área, niveles de desempeño, resumen por departamento, naturaleza × jornada y mapa.
+
+<div align="center">
+    <img src="assets/images/vistas/panorama.png" width="100%" alt="Vista Panorama del tablero">
+</div>
+
+**Brechas** — diferencias de puntaje por tipo y zona del colegio, edad, educación de la madre, jornada, estrato e internet.
+
+<div align="center">
+    <img src="assets/images/vistas/brechas.png" width="100%" alt="Vista Brechas del tablero">
+</div>
+
+**Predicción** — perfil del estudiante, puntaje estimado con su rango, nivel de desempeño y contribución de cada variable (SHAP).
+
+<div align="center">
+    <img src="assets/images/vistas/prediccion.png" width="100%" alt="Vista Predicción del tablero">
+</div>
+
+**Segmentos** — grupos por nivel y por perfil relativo, perfil de cada grupo y ubicación de un estudiante nuevo.
+
+<div align="center">
+    <img src="assets/images/vistas/segmentos.png" width="100%" alt="Vista Segmentos del tablero">
+</div>
+
+**Modelos** — métricas en prueba, comparación de regresores y clasificadores, importancia de variables y ficha de los datos.
+
+<div align="center">
+    <img src="assets/images/vistas/modelos.png" width="100%" alt="Vista Modelos del tablero">
+</div>
 
 ### Datos y modelos
 
