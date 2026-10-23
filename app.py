@@ -25,7 +25,8 @@ st.markdown(f"""
 <style>
 /* --- lienzo: sin cabecera de Streamlit, márgenes mínimos --- */
 [data-testid="stHeader"], [data-testid="stSidebarCollapseButton"], [data-testid="stToolbar"] {{ display: none; }}
-.block-container {{ padding: .7rem 1.2rem .4rem 1.2rem !important; max-width: 100% !important; }}
+.block-container {{ padding: 1.5rem 1.2rem .4rem 1.2rem !important; max-width: 100% !important; }}
+[data-testid="stElementContainer"]:has(> div > div > style), [data-testid="stElementContainer"]:has(style) {{ display: none; }}
 [data-testid="stMain"] [data-testid="stVerticalBlock"] {{ gap: 1.3rem; }}
 [data-testid="stMain"] [data-testid="stHorizontalBlock"] {{ gap: 1.3rem; }}
 /* --- barra lateral azul --- */
@@ -55,8 +56,8 @@ st.markdown(f"""
 [data-testid="stSidebar"] [data-testid="stImage"] img {{ border-radius: 0; }}
 [data-testid="stSidebar"] .st-key-autor {{ position: fixed; bottom: 14px; width: 202px; }}
 /* --- área principal --- */
-h1.titulo {{ color: {NAVY}; font-size: 1.8rem; font-weight: 800; letter-spacing: .3px; margin: 0; line-height: 1.15; text-transform: uppercase; }}
-p.autor {{ color: {GRIS}; font-weight: 700; font-size: .95rem; margin: 4px 0 10px 0; line-height: 1.3; }}
+h1.titulo {{ color: {NAVY}; font-size: 1.8rem; font-weight: 800; letter-spacing: .3px; margin: 0; line-height: 1.15; text-transform: uppercase; padding: 0 !important; }}
+p.autor {{ color: {GRIS}; font-weight: 700; font-size: .95rem; margin: 4px 0 0 0; line-height: 1.3; }}
 .kpis {{ background: #FFF; box-shadow: 0 1px 5px rgba(0,0,0,.18); display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; padding: 16px 28px; min-height: 96px; margin-bottom: 14px; }}
 .kpis .kpi {{ display: flex; align-items: center; justify-content: center; gap: 18px; border-left: 1px solid #E5E7EB; }}
 .kpis .kpi:first-child {{ border-left: 0; }}
