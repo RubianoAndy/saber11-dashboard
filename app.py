@@ -67,6 +67,10 @@ p.autor {{ color: {GRIS}; font-weight: 700; font-size: .95rem; margin: 4px 0 0 0
 [class*="st-key-card"] {{ background: #FFF; box-shadow: 0 1px 5px rgba(0,0,0,.18); padding: 12px 16px 8px 16px; gap: .3rem; }}
 [class*="st-key-card"] li {{ font-size: .86rem; line-height: 1.3; }}
 [class*="st-key-card"] [data-testid="stCaptionContainer"] {{ font-size: .8rem; }}
+[data-testid="stMain"] [data-testid="stHorizontalBlock"] {{ align-items: stretch; }}
+[data-testid="stMain"] [data-testid="stColumn"] > [data-testid="stVerticalBlock"] {{ height: 100%; }}
+[data-testid="stMain"] [data-testid="stColumn"] > [data-testid="stVerticalBlock"] > [data-testid="stLayoutWrapper"]:has(> [class*="st-key-card"]) {{ flex: 1 1 auto; }}
+[data-testid="stMain"] [data-testid="stLayoutWrapper"] > [class*="st-key-card"] {{ height: 100%; }}
 h3.panel {{ color: {NAVY}; font-size: .95rem; font-weight: 700; margin: 0; }}
 .resultado {{ background: #FFF; padding: 14px 18px; box-shadow: 0 1px 5px rgba(0,0,0,.18); margin-bottom: 1.4rem; }}
 .resultado .grande {{ font-size: 2.4rem; font-weight: 800; color: {NAVY}; line-height: 1; }}
@@ -96,8 +100,10 @@ def panel(titulo):
     st.markdown(f'<h3 class="panel">{titulo}</h3>', unsafe_allow_html=True)
 
 
-def fig(f, alto=268):
+def fig(f, alto=268, margen=None):
     f.update_layout(height=alto, **PLOTLY_LAYOUT)
+    if margen:
+        f.update_layout(margin=margen)
     st.plotly_chart(f, width="stretch", config={"displayModeBar": False})
 
 
@@ -362,21 +368,21 @@ elif st.session_state.vista == VISTAS[3]:
         st.dataframe(t.T.style.format("{:.1f}"), width="stretch", height=215)
     with b, tarjeta():
         panel("¿A qué segmento pertenece un estudiante?")
-        izq, der = st.columns([1.2, 1])
+        izq, der = st.columns([1.5, 1])
         vals = {}
         with izq:
-            c1, c2 = st.columns(2)
+            cols = st.columns(3)
             for i, a_ in enumerate(s11.AREA_COLS):
-                vals[a_] = (c1 if i % 2 == 0 else c2).number_input(s11.AREA_NOMBRES[a_], 0, 100, int(D[a_].median()))
-            ed = c2.number_input("Edad", 14, 80, 17)
+                vals[a_] = cols[i % 3].number_input(s11.AREA_NOMBRES[a_].replace(" y ciudadanas", ""), 0, 100, int(D[a_].median()))
+            ed = cols[2].number_input("Edad", 14, 80, 17)
             seg = s11.segmento_de(m, vals, ed)
             st.markdown(f"**Segmento por nivel:** {NOMBRES_NIVEL[seg['nivel']]}  \n**Perfil relativo:** {NOMBRES_PERFIL[seg['perfil']]}")
         with der:
             rel_u = pd.Series(vals).astype(float)
             rel_u = (rel_u - rel_u.mean()).rename(s11.AREA_NOMBRES)
             f = go.Figure(go.Scatterpolar(r=list(rel_u.values) + [rel_u.values[0]], theta=list(rel_u.index) + [rel_u.index[0]], fill="toself", line_color=BLUE))
-            f.update_layout(polar=dict(radialaxis=dict(title="puntos sobre el promedio propio")), showlegend=False)
-            fig(f, 250)
+            f.update_layout(polar=dict(radialaxis=dict(tickfont=dict(size=9)), angularaxis=dict(tickfont=dict(size=10))), showlegend=False)
+            fig(f, 215, margen=dict(l=55, r=55, t=22, b=22))
 
 # ============================================================================= vista 5 · modelos y datos
 else:
