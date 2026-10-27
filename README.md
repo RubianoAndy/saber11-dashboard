@@ -68,9 +68,9 @@ Se separa del repositorio principal por una razón práctica: el despliegue en S
 | Vista | Contenido |
 |---|---|
 | **Panorama** | Tarjetas KPI (estudiantes, puntaje promedio, mínimo y máximo), puntaje promedio por área, distribución por nivel de desempeño, tabla resumen por departamento, *treemap* naturaleza × jornada coloreado por puntaje y mapa de Colombia con el promedio por departamento. |
-| **Brechas** | Brechas privado − oficial, con − sin internet y hombres − mujeres, extraedad; puntaje por naturaleza × área, por edad, por educación de la madre, por jornada y por estrato × internet. |
+| **Brechas** | Brechas privado − oficial, con − sin internet y hombres − mujeres, extraedad; puntaje por naturaleza × área, por edad, por educación de la madre, por jornada y por estrato × internet (barras agrupadas que muestran la ventaja del internet dentro de cada estrato). |
 | **Predicción** | Formulario con las variables del estudiante, el hogar y el colegio → puntaje global estimado por **Gradient Boosting**, rango probable (± MAE), percentil en la muestra, nivel de desempeño con probabilidades por **SVM** y gráfico de contribuciones **SHAP** de esa predicción. |
-| **Segmentos** | Clústeres de **K-means** por nivel (puntajes por área + edad, K = 3) y por perfil relativo (áreas menos el promedio del estudiante, K = 2) en componentes principales, perfil de cada segmento y clasificador de un estudiante nuevo con su radar de fortalezas. |
+| **Segmentos** | Clústeres de **K-means** por nivel (puntajes por área + edad, K = 3) y por perfil relativo (áreas menos el promedio del estudiante, K = 2) en componentes principales, perfil de cada segmento y clasificador de un estudiante nuevo, cuyo radar muestra su perfil relativo (cuánto se aparta cada área de su propio promedio) y que se asigna al centro de K-means más cercano tras escalarlo con el mismo escalador de la muestra. |
 | **Modelos** | Métricas en vivo del Gradient Boosting y la SVM, tablas comparativas de los seis regresores y los cuatro clasificadores del cuaderno 03, importancia de variables y ficha de los datos. |
 
 Los filtros de la barra lateral (departamento, naturaleza, jornada y género) afectan las vistas de panorama y brechas; la predicción y los segmentos usan siempre los modelos entrenados con toda la muestra.
